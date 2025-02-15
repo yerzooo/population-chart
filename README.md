@@ -1,8 +1,14 @@
 # population-chart
 graph for Indonesia's population in 2024
 
-### `npm start` 
-atau
-### `node server.js`
+After clone repo
+- cd population-chart
+- npm init -y
+- npm install express cors chart.js
 
-open index.html on your browser
+start app with 
+- npm start 
+or 
+- node server.js
+
+- open index.html on your browser
