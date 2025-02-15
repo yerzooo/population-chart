@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Penduduk Indonesia 2024</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        canvas { max-width: 800px; margin: auto; }
+    </style>
+</head>
+<body>
+    <h2>Grafik Penduduk Indonesia Tahun 2024</h2>
+    <canvas id="populationChart"></canvas>
+
+    <script>
+        async function fetchPopulationData() {
+            const response = await fetch("http://localhost:3000/api/population");
+            const data = await response.json();
+            return data;
+        }
+
+        async function renderChart() {
+            const data = await fetchPopulationData();
+
+            const ctx = document.getElementById("populationChart").getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: data.map(item => item.province),
+                    datasets: [{
+                        label: "Jumlah Penduduk",
+                        data: data.map(item => item.population),
+                        backgroundColor: "rgba(54, 162, 235, 0.6)"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        renderChart();
+    </script>
+</body>
+</html>
